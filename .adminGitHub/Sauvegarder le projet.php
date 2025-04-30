@@ -24,10 +24,6 @@ exec("git commit -m \"$commitMessage\"");
 echo "🟡 Étape 3 : Push vers le dépôt distant (git push)\n";
 exec('git push');
 
-// 🔄 7. Récupération des mises à jour du dépôt d'origine (remote upstream)
-echo "🟡 Étape 4 : Récupération des mises à jour du dépôt professeur (git fetch upstream)\n";
-exec('git fetch upstream');
-
 // 🎉 8. Fin du script
 echo "✅ Sauvegarde terminée avec succès le $date\n";
 

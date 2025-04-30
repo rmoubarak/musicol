@@ -38,3 +38,8 @@ spl_autoload_register(function ($name) {
     // Si la classe n'est trouvée nulle part
     Erreur::envoyerReponse("Impossible de charger la classe $name", 'global');
 });
+
+// Vérifier l'état de la session
+if (isset($_SESSION['disable'])) {
+    Erreur::envoyerReponse('Votre session a été désactivée suite à une requête jugée malveillante', 'global');
+}

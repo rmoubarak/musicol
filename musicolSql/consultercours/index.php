@@ -2,6 +2,10 @@
 // chargement des ressources
 require $_SERVER['DOCUMENT_ROOT'] .  "/include/autoload.php";
 
+// Création du jeton d'accès
+// Jeton::creer();
+
+Erreur::bloquerVisiteur();
 
 // chargement de l'interface
 $titre = "Consulter les cours d'une journée";

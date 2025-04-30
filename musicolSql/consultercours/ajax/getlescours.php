@@ -2,6 +2,9 @@
 // chargement des ressources
 require $_SERVER['DOCUMENT_ROOT'] . '/include/autoload.php';
 
+// contrôle d'accès
+Jeton::verifier();
+
 // Vérification des paramètres attendus
 if (!isset($_POST['idJour'])) {
    Erreur::envoyerReponse("Paramètres manquant", "global");

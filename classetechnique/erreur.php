@@ -69,7 +69,7 @@ class Erreur
         if(session_status() === PHP_SESSION_NONE) session_start();
         $_SESSION['disable'] = true;
         $_SESSION['erreur'] = [];
-        $_SESSION['erreur']['message'] = "Votre requête a été jugée malveillante, Votre session a été désactivée et votre adresse IP a été enregistrée";
+        $_SESSION['erreur']['message'] = "Votre requête a été jugée malveillante, votre session a été désactivée et votre adresse IP a été enregistrée";
         header('Location:/erreur');
         exit;
     }
