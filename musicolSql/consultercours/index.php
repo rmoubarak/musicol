@@ -2,20 +2,15 @@
 // chargement des ressources
 require $_SERVER['DOCUMENT_ROOT'] .  "/include/autoload.php";
 
-Jeton::creer();
 
 // chargement de l'interface
 $titre = "Consulter les cours d'une journée";
+$musicol = new Musicol(new Select());
+$data = json_encode($musicol->getLesJours());
 
-// Instancier la classe Musicol
-
-// Récupérer les jours dans le format json
-
-
-// Transmisssion des données à l'interface
 $head = <<<EOD
 <script>
-   
+    let data = $data;
 </script>
 EOD;
 

@@ -10,4 +10,10 @@ let dateJour = new Date();
 document.getElementById('annee').innerText = dateJour.getFullYear()
 
 // affichage des tarifs
-
+for (let ligne of data) {
+    let tr = lesLignes.insertRow();
+    tr.style.textAlign = "center";
+    tr.insertCell().innerText = ligne.libelle;
+    tr.insertCell().innerText = ligne.coursIndividuel;
+    tr.insertCell().innerText = ligne.coursCollectif;
+}

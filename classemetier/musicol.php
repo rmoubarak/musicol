@@ -46,8 +46,16 @@ class Musicol {
      */
     public function getlesTarifs() : array {
         $sql = <<<EOD
-           
-           
+            Select 'EXT' as libelle, 
+                   (select prixExterieur from typeCours where id = 1) as coursIndividuel, 
+                   (select prixExterieur from typeCours where id = 2) as coursCollectif
+            Union
+            Select tranche.libelle, 
+                   sum(if(tarif.idTypeCours = 1, montant, 0)) as CoursIndividuel, 
+                   sum(if(tarif.idTypeCours = 2, montant, 0)) as CoursCollectif
+            from tarif
+                     join tranche on tarif.idTranche = tranche.id
+            group by tranche.libelle;  
 EOD;
         try {
             return $this->select->getRows($sql);
@@ -84,8 +92,13 @@ EOD;
 
     public function getLePlanning() : array {
         $sql = <<<EOD
-           
-           
+              Select jour.libelle as jour, group_concat(if(cours.idTypeCours = 2, cours.libelle,  
+              (select instrument.intitule from instrument 
+                where id = cours.idInstrument)) SEPARATOR ', ') as lesCours  
+        from planning
+            join cours on planning.idCours =  cours.id
+            join jour on planning.idJour = jour.id
+        group by jour.id ;
 EOD;
         try {
             return $this->select->getRows($sql);
@@ -140,7 +153,10 @@ EOD;
     public function getLesCours(int $idJour) : array {
 
         $sql = <<<EOD
-
+        Select if(cours.idTypeCours = 2, cours.libelle,  (select instrument.intitule from instrument where id = cours.idInstrument)) as libelle  
+        from cours
+            join planning on planning.idCours =  cours.id
+        where idJour = :id
 
 EOD;
         $select = new Select();

@@ -7,14 +7,12 @@ require $_SERVER['DOCUMENT_ROOT'] . '/include/autoload.php';
 // chargement des données
 $titre = "Planning des cours";
 
-// Instancier la classe Musicol
+$musicol = new Musicol(new Select());
+$data = json_encode($musicol->getLePlanning());
 
-// Récupérer le planning dans le format json
-
-// Transmisssion des données à l'interface
 $head = <<<EOD
 <script>
-   
+    let data = $data;
 </script>
 EOD;
 

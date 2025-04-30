@@ -9,5 +9,8 @@ let lesLignes = document.getElementById('lesLignes');
 let dateJour = new Date();
 document.getElementById('annee').innerText = dateJour.getFullYear();
 
-// affichage des cours
-
+for (const element of data) {
+    let tr = lesLignes.insertRow();
+    tr.insertCell().innerText = element.jour;
+    tr.insertCell().innerText = element.lesCours;
+}

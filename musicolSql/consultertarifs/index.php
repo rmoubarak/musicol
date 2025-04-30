@@ -4,17 +4,13 @@ require $_SERVER['DOCUMENT_ROOT'] . "/include/autoload.php";
 
 
 // chargement des données
-
 $titre = "Les tarifs";
-// Instancier la classe Musicol
+$musicol = new Musicol(new Select());
+$data = json_encode($musicol->getlesTarifs());
 
-// Récupérer les tarifs
-
-
-// Transmisssion des données à l'interface
 $head = <<<EOD
 <script>
-
+    let data = $data;
 </script>
 EOD;
 
