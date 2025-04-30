@@ -1,0 +1,17 @@
+# Environnement de développement
+.idea/
+*.log
+.DS_Store
+.admin/
+
+# Dépendances Composer
+/vendor/
+composer.lock
+
+# Répertoires spécifiques à l'application
+
+# Répertoire de compilation Smarty (à ne pas versionner)
+musicolSmarty/controleur/templates_c/
+
+# Répertoire de cache Smarty (si activé)
+musicolSmarty/controleur/cache/
