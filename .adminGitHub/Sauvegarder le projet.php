@@ -1,30 +1,32 @@
 <?php
-// 🟢 Ce script automatise l'ajout, le commit, le push, et la synchronisation Git
-
 date_default_timezone_set('Europe/Paris');
-
-// 📁 1. Aller à la racine du projet (un niveau au-dessus du dossier où se trouve ce script)
 chdir(__DIR__ . '/..');
 
-// 📆 2. Génération de la date au format souhaité (ex : 25/04/2025 à 14:30)
-$date = date('d/m/Y à H:i');
+// 1. Synchroniser avec le dépôt distant sans fusionner
+echo "🔄 Vérification du dépôt distant...\n";
+exec('git fetch');
 
-// 🧾 3. Construction du message de commit avec date et heure
+// 2. Vérifier si des commits distants sont en attente
+exec('git rev-list HEAD..origin/main --count', $diffCount);
+$nbCommitsDistant = (int) $diffCount[0];
+
+if ($nbCommitsDistant > 0) {
+    echo "❌ Le dépôt distant contient $nbCommitsDistant commit(s) non récupéré(s).\n";
+    echo "🛑 Annulation du commit : veuillez lancer Restaurer le projet.php d'abord.\n";
+    exit(1);
+}
+
+// 3. Aucun commit distant en attente → commit autorisé
+$date = date('d/m/Y à H:i');
 $commitMessage = "Dernière sauvegarde le $date";
 
-// ➕ 4. Ajouter tous les fichiers modifiés au staging area
-echo "🟡 Étape 1 : Ajout des fichiers modifiés (git add .)\n";
+echo "🟡 Ajout des fichiers modifiés\n";
 exec('git add .');
 
-// ✅ 5. Commit avec un message horodaté
-echo "🟡 Étape 2 : Commit des modifications avec le message : \"$commitMessage\"\n";
+echo "🟡 Commit des modifications : $commitMessage\n";
 exec("git commit -m \"$commitMessage\"");
 
-// 🚀 6. Push vers le dépôt GitHub de l'étudiant (remote origin)
-echo "🟡 Étape 3 : Push vers le dépôt distant (git push)\n";
+echo "🟡 Push vers le dépôt distant\n";
 exec('git push');
 
-// 🎉 8. Fin du script
 echo "✅ Sauvegarde terminée avec succès le $date\n";
-
-exit;
