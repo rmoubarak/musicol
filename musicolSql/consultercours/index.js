@@ -2,8 +2,8 @@
 
 import {
     afficherErreur,
-    afficherErreurSaisie
-} from 'https://verghote.github.io/composant/fonction.js';
+    afficherErreurSaisie,
+} from 'https://verghote.github.io/composant/fonction.min.js';
 
 /* global data */
 
@@ -26,34 +26,37 @@ idJour.onchange = () => afficherLesCours(idJour.value);
 /*
  afficher les cours du jour sélectionné
  */
-function afficherLesCours(id) {
-    $.ajax({
-        url: "ajax/getlescours.php",
-        method: 'post',
-        data: {idJour: id},
-        dataType: "json",
-        success: (data) => {
-            if (data.error) {
-                for (const key in data.error) {
-                    const message = data.error[key];
-                    if (key === 'system') {
-                        afficherErreur('Une erreur inattendue est survenue');
-                    } else if (key === 'global') {
-                        afficherErreur(message);
-                    } else  {
-                        afficherErreurSaisie(key, message );
-                    }
-                }
-            } else {
-                lesLignes.innerHTML = "";
-                for (let cours of data) {
-                    lesLignes.insertRow().insertCell().innerText = cours.libelle;
+async function afficherLesCours(id) {
+    const formData = new FormData();
+    formData.append("idJour", id);
+    try {
+        const response = await fetch("ajax/getlescours.php", {
+            method: "POST",
+            body: formData
+        });
+        if (!response.ok) {
+            throw new Error("Erreur HTTP : " + response.status);
+        }
+        const data = await response.json();
+        if (data.error) {
+            for (const key in data.error) {
+                const message = data.error[key];
+                if (key === 'system') {
+                    afficherErreur('Une erreur inattendue est survenue');
+                } else if (key === 'global') {
+                    afficherErreur(message);
+                } else {
+                    afficherErreurSaisie(key, message);
                 }
             }
-        },
-        error: reponse => {
-            afficherErreur('Une erreur imprévue est survenue');
-            console.log(reponse.responseText);
+        } else {
+            lesLignes.innerHTML = "";
+            for (let cours of data) {
+                lesLignes.insertRow().insertCell().innerText = cours.libelle;
+            }
         }
-    });
+    } catch (error) {
+        afficherErreur('Une erreur imprévue est survenue');
+        console.error("Détail de l'erreur :", error);
+    }
 }

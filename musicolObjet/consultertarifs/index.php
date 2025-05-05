@@ -7,7 +7,9 @@ $titre = "Les tarifs";
 
 // chargement des objets Tranche et TypeCours
 $musicol = new Passerelle(new Select());
+
 $lesTranches = $musicol->getLesTranches();
+
 $lesTypesCours = $musicol->getLesTypesCours();
 
 // génération du tableau contenant les tarifs : éléments composés de 3 propriétés : 1 pour la tranche 'libelle' + 1 par type de cours  'le libellé du type de cours'

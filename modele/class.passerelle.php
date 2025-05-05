@@ -24,7 +24,7 @@ class Passerelle
     }
 
     /**
-     * Parcourt la table typeCourse pour générer les objets TypeCours
+     * Parcourt la table typeCours pour générer les objets TypeCours
      * Retourne les types de cours dans un tableau associatif
      *     clé = identifiant du type de cours
      *     valeur = objet de la classe TypeCours
@@ -32,12 +32,11 @@ class Passerelle
      */
     public function getLesTypesCours(): array
     {
-
+        $lesLignes = $this->select->getRows("select id, libelle, prixExterieur from typeCours");
         $lesTypesCours = [];
-
-
-
-
+        foreach ($lesLignes as ['id' => $id, 'libelle' => $libelle, 'prixExterieur' => $prixExterieur]) {
+            $lesTypesCours[$id] = new TypeCours($id, $libelle, $prixExterieur);
+        }
         return $lesTypesCours;
     }
 
@@ -84,17 +83,22 @@ EOD;
      * Génération d'un tableau associatif contenant des objets Instrument, la clé du tableau est l'id de l'instrument
      * @return array
      */
-    public function getLesInstruments(): array
-    {
-
-
+    public function getLesInstruments(): array {
+        // création des objets Instrument à partir de la table instrument
+        $sql = <<<EOD
+            Select id, intitule
+            from instrument;
+EOD;
+        // Exécution de la requête SQL pour récupérer les lignes
+        $lesLignes = $this->select->getRows($sql);
         // création des objets Instrument
         $lesInstruments = [];
-
-
-
+        foreach ($lesLignes as ['id' => $id, 'intitule' => $intitule]) {
+            $lesInstruments[$id] = new Instrument($id, $intitule);
+        }
         return $lesInstruments;
     }
+
 
     /**
      * Génération d'un tableau associatif contenant des objets Cours, la clé du tableau est l'id du cours

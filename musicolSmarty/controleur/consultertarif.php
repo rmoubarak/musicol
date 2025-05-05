@@ -37,5 +37,10 @@ foreach($lesTranches as $uneTranche) {
 }
 
 // préparation de la vue en lui transmettant les paramètres attendus : l'année et un tableau contenant les lignes à afficher
-
-
+require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+use Smarty\Smarty;
+$vue = new Smarty();
+$vue->assign('titre', $titre);
+$vue->assign('annee', date('Y'));
+$vue->assign('lesLignes', $lesLignes);
+$vue->display('../vue/lestarifs.tpl');
