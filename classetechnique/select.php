@@ -5,8 +5,8 @@ declare(strict_types=1);
  * Classe permettant de gérer toutes les requêtes de consultation de la base de données
  *
  * @Author : Guy Verghote
- * @Version : 3.0.1
- * @Date : 17/04/2025
+ * @Version : 2025.1
+ * @Date : 03/05/2025
  */
 class Select
 {

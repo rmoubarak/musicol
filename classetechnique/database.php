@@ -5,8 +5,8 @@ declare(strict_types=1);
  * Nécessite un fichier de configuration database.php stocké dans le répertoire /.config du projet
  * Le fichier de configuration doit retourner un tableau associatif dont les clés sont les paramètres de connexion
  * @Author : Guy Verghote
- * @Version : 2.0.1
- * @Date : 31/07/2024
+ * @Version : 2025.1
+ * @Date : 03/05/2025
  */
 
 class Database

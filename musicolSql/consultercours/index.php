@@ -13,13 +13,15 @@ $musicol = new Musicol(new Select());
 $data = json_encode($musicol->getLesJours());
 
 $head = <<<EOD
-<script>
-    let data = $data;
-</script>
+    <script>
+        let data = $data;
+    </script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+            crossorigin="anonymous">
+    </script>
 EOD;
 
-// chargement des composants spécifiques
-$head .= file_get_contents("https://verghote.github.io/composant/jquery.html");
 
 // chargement de l'interface
 require RACINE . "/include/interface.php";

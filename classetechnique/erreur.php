@@ -5,8 +5,8 @@ declare(strict_types=1);
  * Classe Erreur : Classe permettant de générer la réponse du serveur en cas d'erreur détectée
  * Utilise les classes techniques Journal et ListeNoire (table listenoire)
  * @Author : Guy Verghote
- * @Version : 2.0.0
- * @Date : 29/04/2025
+ * @Version : 2025.1
+ * @Date : 03/05/2025
  */
 class Erreur
 {
@@ -46,7 +46,7 @@ class Erreur
 
         // Si le script a été appelé directement
         if (empty($_SERVER['HTTP_X_REQUESTED_WITH']) || strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) !== 'xmlhttprequest') {
-            if(session_status() === PHP_SESSION_NONE) session_start();
+            if (session_status() === PHP_SESSION_NONE) session_start();
             $_SESSION['erreur'] = [];
             $_SESSION['erreur']['page'] = $_SERVER['PHP_SELF'];
             $_SESSION['erreur']['message'] = $message;
@@ -65,11 +65,11 @@ class Erreur
     public static function bloquerVisiteur(): void
     {
         $url = $_SERVER['REQUEST_URI'];
-        Journal::enregistrer("Url malveillante : $url", 'menace');
-        if(session_status() === PHP_SESSION_NONE) session_start();
+        Journal::enregistrer($url, 'menace');
+        if (session_status() === PHP_SESSION_NONE) session_start();
         $_SESSION['disable'] = true;
         $_SESSION['erreur'] = [];
-        $_SESSION['erreur']['message'] = "Votre requête a été jugée malveillante, votre session a été désactivée et votre adresse IP a été enregistrée";
+        $_SESSION['erreur']['message'] = "Votre requête a été jugée malveillante, Votre session a été désactivée et votre adresse IP a été enregistrée";
         header('Location:/erreur');
         exit;
     }

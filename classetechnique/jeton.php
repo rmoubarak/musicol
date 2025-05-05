@@ -6,7 +6,7 @@ declare(strict_types=1);
  *
  * @Author : Guy Verghote
  * @Version 2025.2
- * @Date : 29/04/2025
+ * @Date : 03/05/2025
  */
 class Jeton {
 
@@ -57,7 +57,7 @@ class Jeton {
         $token = $_COOKIE['token'] ?? null;
 
         if ($token === null) {
-            Erreur::envoyerReponse("Jeton manquant dans le cookie.", 'global');
+            Erreur::envoyerReponse("Jeton manquant.", 'global');
             return false;
         }
 
