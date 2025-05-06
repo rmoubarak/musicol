@@ -27,6 +27,12 @@ foreach ($lePlanning as $jour) {
 }
 
 // préparation de la vue en lui transmettant les paramètres attendus : l'année et un tableau contenant les lignes à afficher
+require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+use Smarty\Smarty;
+$vue = new Smarty();
+$vue->assign('annee', date(('Y')));
+$vue->assign('lePlanning', $lesLignes);
+$vue->display('../vue/leplanning.tpl');
 
 
 

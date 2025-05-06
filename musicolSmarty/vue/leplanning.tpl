@@ -8,11 +8,16 @@
             <th style="" >Cours programmés</th>
         </tr>
         </thead>
-
-
-
-
-
+        {foreach $lePlanning as $uneJournee}
+            <tr>
+                <td style="width: 20%;">
+                    {$uneJournee.jour}
+                </td>
+                <td style="width: 80%;">
+                    {$uneJournee.lesCours}
+                </td>
+            </tr>
+        {/foreach}
     </table>
 </div>
 {include file="../include/pied.html"}

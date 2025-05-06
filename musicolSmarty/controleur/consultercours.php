@@ -9,6 +9,11 @@ $titre = "Consulter les cours d'une journée";
 // Ce tableau contient des objets 'Jour'
 // Chaque objet Jour contient un id, un libellé et un tableau à index numérique contenant les objets Cours
 $musicol = new Passerelle(new Select());
-$lePlanning = $musicol->getLePlanning();
+$lePlanning = json_encode($musicol->getLePlanning());
+require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+use Smarty\Smarty;
+$vue = new Smarty();
+$vue->assign('lePlanning', $lePlanning);
+$vue->display('../vue/lescours.tpl');$vue->display('../vue/lescours.tpl');
 
 
